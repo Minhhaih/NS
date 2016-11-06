@@ -23,9 +23,9 @@ with open("build.txt", "w") as f:
     f.close()
 
 # UI van Vertrektijden
-def vertrek():
+def zoekStad():
 
-    # UI Vertrektijden details:
+    # UI zoekStad details:
     top_font = ("Helvetica", 20, "bold")
     UIBackground = "#fcc917" # Geel
     front_text = "#002d72"  # Blauw
@@ -41,17 +41,46 @@ def vertrek():
     UIVertrek.title('Vertrektijden NS')
 
     # Labels in UIVertrek
-    Label(UIVertrek,text='Actuele Vertrektijden',font=top_font, foreground=front_text, background=back_text).place(x=180,y=30)
-    Label(UIVertrek,text='Voer plaatsnaam in: ',font=fontje, foreground=front_text, background=back_text).place(x=220,y=70)
-    InvoerPlaats = Entry(UIVertrek)
-    InvoerPlaats.place(x=255, y = 110)
+    Label(UIVertrek,text='Vertrektijden',font=top_font, foreground=front_text, background=back_text).place(x=235,y=30)
+    Label(UIVertrek,text='Voer plaatsnaam in: ',font=fontje, foreground=front_text, background=back_text).place(x=230,y=70)
+    invoerPlaats = Entry(UIVertrek)
+    invoerPlaats.place(x=255, y = 110)
 
     # Knop in UIVertrek
     KnopTerug = Button(UIVertrek, text='Terug', foreground=front_knop, background=back_knop, font=knop, command=UIVertrek.quit).place(x=5, y=5)
-    KnopZoek = Button(UIVertrek, text='Zoek tijden', foreground=front_knop, background=back_knop, font=knop)
+    KnopZoek = Button(UIVertrek, text='Zoek tijden', foreground=front_knop, background=back_knop, font=knop, command=lambda: vertrekTijden(invoerPlaats.get(),UIVertrek))
     KnopZoek.place(x = 280, y = 140)
 
     UIVertrek.mainloop()
+
+def vertrekTijden(station, UIVertrek):
+
+    # UI Vertrektijden details:
+    top_font = ("Helvetica", 10, "bold")
+    UIBackground = "#fcc917" # Geel
+    front_text = "#002d72"  # Blauw
+    back_text = "#fcc917"  # Blauw
+    fontje = ('Helvetica', 8)
+
+    y_as = 240
+    test = 0
+
+    Label(UIVertrek,text='U heeft gekozen voor: Station ' +station,font=top_font, foreground=front_text, background=back_text).place(x=200,y=180)
+    UIVertrek.configure(height=625, width=635, background=UIBackground)
+    Label(UIVertrek, text = 'Tijd: \tEindbestemming: \tSpoor: \tWijzigingen:', font = ('Helvetica', 10, 'bold'), foreground=front_text, background=back_text).place(x = 125, y = 210)
+
+
+    for i in range(0,16):
+        if test == 15:
+            break
+
+        Label(UIVertrek, text = "17:35", font=fontje,anchor='w', foreground=front_text, background=back_text).place(x=125, y= y_as)
+        Label(UIVertrek, text = "Gouda-Goverwelle", font=fontje,anchor='w', foreground=front_text, background=back_text).place(x=200, y=y_as)
+        Label(UIVertrek, text = "5a", font=fontje,anchor='w',  foreground=front_text, background=back_text).place(x=365, y=y_as)
+        Label(UIVertrek, text = "Wijzigingen?", font=fontje,anchor='w', foreground=front_text, background=back_text).place(x=415,y=y_as)
+
+        y_as += 20
+        test +=1
 
 # UI Baisscherm details:
 top_text = ("Helvetica", 20, "bold")
@@ -77,6 +106,6 @@ KnopAMS = Button(UI, text='Ik wil naar \nAmsterdam', foreground=front_knop, back
 KnopKaart = Button(UI, text='Kopen \nlos kaartje', foreground=front_knop, background=back_knop, font=knop).place(x=160, y=100)
 KnopOV = Button(UI, text='Sluit scherm', foreground=front_knop, background=back_knop, font=knop, command=UI.quit).place(x=260, y=100)
 KnopBuitenland = Button(UI, text='Ik wil naar \nhet buitenland', foreground=front_knop, background=back_knop, font=knop).place(x=380, y=100)
-KnopVertrek = Button(UI, text='Huidige \nvertrektijden', foreground=front_knop, background=back_knop, font=knop, command=vertrek).place(x=500, y=100)
+KnopVertrek = Button(UI, text='Huidige \nvertrektijden', foreground=front_knop, background=back_knop, font=knop, command=zoekStad).place(x=500, y=100)
 
 UI.mainloop()
