@@ -2,7 +2,7 @@ __author__ = "Thimo, Koen, Remon en Edo"
 __copyright__ = "Copyright 2016, Groep 4 HU"
 __credits__ = ["Nederlandse Spoorwegen", "Hogeschool Utrecht"]
 __license__ = "GNU GPL"
-__version__ = "0.01"
+__version__ = "0.8"
 
 # Module Import
 from tkinter import *

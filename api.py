@@ -2,7 +2,7 @@ __author__ = "Thimo, Koen, Remon en Edo"
 __copyright__ = "Copyright 2016, Groep 4 HU"
 __credits__ = ["Nederlandse Spoorwegen", "Hogeschool Utrecht", "Skinkie"]
 __license__ = "GNU GPL"
-__version__ = "0.75"
+__version__ = "1"
 
 import requests
 import codecs
@@ -15,14 +15,14 @@ url = 'http://webservices.ns.nl/ns-api-stations-v2'
 def vertrektijden(station):
     url = 'http://webservices.ns.nl/ns-api-avt?station=' + station
     data = requests.get(url, auth = (username, password))
-    xml = codecs.open('vertrektijden.xml', "w", "utf-8")
+    xml = codecs.open('vertrektijden.xml', 'w', 'utf-8')
     xml.write(str(data.text))
     xml.close()
     return xmltodict.parse(data.text)
 
 def stations_xml():
     data = requests.get(url, auth = (username, password))
-    xml = codecs.open('stations.xml', "w", "utf-8")
+    xml = codecs.open('stations.xml', 'w', 'utf-8')
     xml.write(str(data.text))
     xml.close()
 
@@ -38,7 +38,6 @@ def check(station):
         return False
 
 stations_xml()
-vertrektijden('Gouda')
 dict = stationsindict()
 stations_lijst = []
 for station in dict['Stations']['Station']:
