@@ -1,6 +1,6 @@
 __author__ = "Thimo, Koen, Remon en Edo"
 __copyright__ = "Copyright 2016, Groep 4 HU"
-__credits__ = ["Nederlandse Spoorwegen", "Hogeschool Utrecht"]
+__credits__ = ["Nederlandse Spoorwegen", "Hogeschool Utrecht", "Hans Stol - Totaldesign"]
 __license__ = "GNU GPL"
 __version__ = "0.8"
 
@@ -26,7 +26,7 @@ with open("build.txt", "w") as f:
 def zoekStad():
 
     # UI zoekStad details:
-    top_font = ("Helvetica", 20, "bold")
+    top_font = ("Helvetica", 25, "bold")
     UIBackground = "#fcc917" # Geel
     front_text = "#002d72"  # Blauw
     back_text = "#fcc917"  # Blauw
@@ -41,55 +41,79 @@ def zoekStad():
     UIVertrek.title('Vertrektijden NS')
 
     # Labels in UIVertrek
-    Label(UIVertrek,text='Het is nu: ' +strftime("%H:%M:%S"),font=fontje, foreground=front_text, background=back_text).place(x=250,y=0)
-    Label(UIVertrek,text='Vertrektijden',font=top_font, foreground=front_text, background=back_text).place(x=235,y=30)
+    Label(UIVertrek,text='Het is nu: ' +strftime("%H:%M:%S"),font=fontje, foreground=front_text, background=back_text).place(x=262,y=0)
+    Label(UIVertrek,text='Vertrektijden',font=top_font, foreground=front_text, background=back_text).place(x=220,y=30)
     Label(UIVertrek,text='Voer plaatsnaam in: ',font=fontje, foreground=front_text, background=back_text).place(x=250,y=75)
     invoerPlaats = Entry(UIVertrek)
     invoerPlaats.place(x=255, y = 110)
 
     # Knop in UIVertrek
     KnopTerug = Button(UIVertrek, text='Terug', foreground=front_knop, background=back_knop, font=knop, command=UIVertrek.destroy).place(x=5, y=5)
-    KnopZoek = Button(UIVertrek, text='Zoek tijden', foreground=front_knop, background=back_knop, font=knop, command=lambda: vertrekTijden(invoerPlaats.get(),UIVertrek))
+    KnopZoek = Button(UIVertrek, text='Zoek tijden', foreground=front_knop, background=back_knop, font=knop, command=lambda: station_check(invoerPlaats.get(),UIVertrek))
     KnopZoek.place(x = 280, y = 140)
 
     UIVertrek.mainloop()
 
-def vertrekTijden(station, UIVertrek):
-
-    # UI Vertrektijden details:
-    top_font = ("Helvetica", 10, "bold")
-    UIBackground = "#fcc917" # Geel
-    front_text = "#002d72"  # Blauw
-    back_text = "#fcc917"  # Blauw
-    fontje = ('Helvetica', 8)
-
-    y_as = 240
-    test = 0
-
-    Label(UIVertrek,text='U heeft gekozen voor: Station ' +station,font=top_font, foreground=front_text, background=back_text).place(x=200,y=180)
-    UIVertrek.configure(height=625, width=635, background=UIBackground)
-    Label(UIVertrek, text = 'Tijd: \tEindbestemming: \tSpoor: \tWijzigingen:', font = ('Helvetica', 10, 'bold'), foreground=front_text, background=back_text).place(x = 125, y = 210)
+def station_check(station,UIVertrek):
 
     if check(station):
-        vertrekdict = vertrektijden(station)
-
-        for vertrek in vertrekdict['ActueleVertrekTijden']['VertrekkendeTrein']:
-            if test == 15:
-                break
-
-            Label(UIVertrek, text = vertrek['VertrekTijd'][11:16], font=fontje,anchor='w', foreground=front_text, background=back_text).place(x=125, y= y_as)
-            Label(UIVertrek, text = vertrek['EindBestemming'], font=fontje,anchor='w', foreground=front_text, background=back_text).place(x=180, y=y_as)
-            Label(UIVertrek, text = vertrek['VertrekSpoor']['#text'], font=fontje,anchor='w',  foreground=front_text, background=back_text).place(x=350, y=y_as)
-            if vertrek['VertrekSpoor']['@wijziging'] == 'true':
-                edit = 'Haha kut NS #altijdtelaat'
-            if vertrek['VertrekSpoor']['@wijziging'] == 'false':
-                edit = '       '
-            Label(UIVertrek, text=edit, font=fontje,anchor='w', foreground=front_text, background=back_text).place(x=408,y=y_as)
-
-            y_as += 20
-            test +=1
+        vertrekTijden(station)
     else:
+        UIVertrek.destroy()
         messagebox.showerror('NS Automaat', 'U heeft geen geldig station ingevoerd. Probeer het opnieuw!')
+
+def vertrekTijden(station):
+
+    # UI Vertrekbord details:
+    top_font = ("Helvetica", 25, "bold")
+    UIBackground = "#ffffff" # Geel
+    front_text = "#002d72"  # Blauw
+    back_text = "#ffffff"  # Blauw
+    knop = ('Helvetica', 10)
+    klein = ('Helvetica', 8)
+    verandering_font = "#FF0000"
+    # UI Vertrekbord:
+    UIVertrekbord = Tk()
+    UIVertrekbord.configure(height=690, width=500, background=UIBackground)
+    UIVertrekbord.title('Vertrekbord NS')
+
+    vertrekdict = vertrektijden(station)
+
+    y_as = 85
+    test = 0
+    Tijd = Button(UIVertrekbord, text=''+strftime("%H:%M"), foreground=front_knop, background=back_knop, font=knop, height=(2), width=5, command=UIVertrekbord.destroy).place(x=5, y=0)
+    Label(UIVertrekbord,text='Vertrek van de treinen',font=top_font, foreground=front_text, background=back_text).place(x=85,y=0)
+
+    Label(UIVertrekbord,text='Station ' +station,font=klein, foreground=front_text, background=back_text).place(x=350,y=40)
+    Label(UIVertrekbord, text = 'tijd', font = ('Helvetica', 10, 'bold'), foreground=front_text, background=back_text).place(x = 5, y = 65)
+    Label(UIVertrekbord, text = 'naar', font = ('Helvetica', 10, 'bold'), foreground=front_text, background=back_text).place(x = 50, y = 65)
+    Label(UIVertrekbord, text = 'spoor', font = ('Helvetica', 10, 'bold'), foreground=front_text, background=back_text).place(x = 170, y = 65)
+    Label(UIVertrekbord, text = 'treinsoort', font = ('Helvetica', 10, 'bold'), foreground=front_text, background=back_text).place(x = 220, y = 65)
+    Label(UIVertrekbord, text = 'opmerkingen', font = ('Helvetica', 10, 'bold'), foreground=front_text, background=back_text).place(x = 320, y = 65)
+    Label(UIVertrekbord, text = 'vertraging', font = ('Helvetica', 10, 'bold'), foreground=front_text, background=back_text).place(x = 420, y = 65)
+
+    for vertrek in vertrekdict['ActueleVertrekTijden']['VertrekkendeTrein']:
+        if test == 30:
+            break
+        Label(UIVertrekbord, text = vertrek['VertrekTijd'][11:16], font=klein,anchor='w', foreground=front_text, background=back_text).place(x=5, y= y_as)
+        Label(UIVertrekbord, text = vertrek['EindBestemming'], font=klein,anchor='w', foreground=front_text, background=back_text).place(x=50, y=y_as)
+        Label(UIVertrekbord, text = vertrek['VertrekSpoor']['#text'], font=klein,anchor='w',  foreground=front_text, background=back_text).place(x=170, y=y_as)
+        Label(UIVertrekbord, text = vertrek['TreinSoort'], font=klein,anchor='w',  foreground=front_text, background=back_text).place(x=220, y=y_as)
+        if vertrek['VertrekSpoor']['@wijziging'] == 'true':
+            spoorwijziging = 'Gewijzigd spoor'
+        if vertrek['VertrekSpoor']['@wijziging'] == 'false':
+            spoorwijziging = '  '
+        Label(UIVertrekbord, text=spoorwijziging, font=klein, anchor='w', foreground=front_text, background=back_text).place(x=320,y=y_as)
+        try:
+            if "PT" in vertrek['VertrekVertraging']:
+                vertraging = vertrek['VertrekVertraging'][2:3]+'min'
+        except KeyError:
+            vertraging = '  '
+            pass
+        Label(UIVertrekbord, text=vertraging, font=klein, anchor='w', foreground=verandering_font, background=back_text).place(x=420,y=y_as)
+        y_as += 20
+        test +=1
+
 
 def excuses():
     messagebox.showinfo('NS Automaat','Helaas is deze functie niet in gebruik. Excuses!')
