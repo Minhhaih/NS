@@ -8,8 +8,7 @@ __version__ = "0.01"
 from tkinter import *
 from api import *
 from tkinter import messagebox
-# Bij gebruik van afbeeldingen
-from PIL import Image, ImageTk
+from time import strftime
 
 # Build nummer updater
 build = 0
@@ -34,7 +33,7 @@ def zoekStad():
     front_knop = "#ffffff" # Wit
     back_knop = "#002d72" # Blauw
     knop = font=("Helvetica", 10)
-    fontje = ('Helvetica', 15, 'bold')
+    fontje = ('Helvetica', 10, 'bold')
 
     # UI Vertrektijden:
     UIVertrek = Tk()
@@ -42,13 +41,14 @@ def zoekStad():
     UIVertrek.title('Vertrektijden NS')
 
     # Labels in UIVertrek
+    Label(UIVertrek,text='Het is nu: ' +strftime("%H:%M:%S"),font=fontje, foreground=front_text, background=back_text).place(x=250,y=0)
     Label(UIVertrek,text='Vertrektijden',font=top_font, foreground=front_text, background=back_text).place(x=235,y=30)
-    Label(UIVertrek,text='Voer plaatsnaam in: ',font=fontje, foreground=front_text, background=back_text).place(x=230,y=70)
+    Label(UIVertrek,text='Voer plaatsnaam in: ',font=fontje, foreground=front_text, background=back_text).place(x=250,y=75)
     invoerPlaats = Entry(UIVertrek)
     invoerPlaats.place(x=255, y = 110)
 
     # Knop in UIVertrek
-    KnopTerug = Button(UIVertrek, text='Terug', foreground=front_knop, background=back_knop, font=knop, command=UIVertrek.quit).place(x=5, y=5)
+    KnopTerug = Button(UIVertrek, text='Terug', foreground=front_knop, background=back_knop, font=knop, command=UIVertrek.destroy).place(x=5, y=5)
     KnopZoek = Button(UIVertrek, text='Zoek tijden', foreground=front_knop, background=back_knop, font=knop, command=lambda: vertrekTijden(invoerPlaats.get(),UIVertrek))
     KnopZoek.place(x = 280, y = 140)
 
@@ -79,11 +79,17 @@ def vertrekTijden(station, UIVertrek):
 
             Label(UIVertrek, text = vertrek['VertrekTijd'][11:16], font=fontje,anchor='w', foreground=front_text, background=back_text).place(x=125, y= y_as)
             Label(UIVertrek, text = vertrek['EindBestemming'], font=fontje,anchor='w', foreground=front_text, background=back_text).place(x=180, y=y_as)
-            Label(UIVertrek, text = vertrek['VertrekSpoor'], font=fontje,anchor='w',  foreground=front_text, background=back_text).place(x=365, y=y_as)
-            Label(UIVertrek, text = "Wijzigingen?", font=fontje,anchor='w', foreground=front_text, background=back_text).place(x=415,y=y_as)
+            Label(UIVertrek, text = vertrek['VertrekSpoor']['#text'], font=fontje,anchor='w',  foreground=front_text, background=back_text).place(x=350, y=y_as)
+            if vertrek['VertrekSpoor']['@wijziging'] == 'true':
+                edit = 'Haha kut NS #altijdtelaat'
+            if vertrek['VertrekSpoor']['@wijziging'] == 'false':
+                edit = '       '
+            Label(UIVertrek, text=edit, font=fontje,anchor='w', foreground=front_text, background=back_text).place(x=408,y=y_as)
 
             y_as += 20
             test +=1
+    else:
+        messagebox.showerror('NS Automaat', 'U heeft geen geldig station ingevoerd. Probeer het opnieuw!')
 
 def excuses():
     messagebox.showinfo('NS Automaat','Helaas is deze functie niet in gebruik. Excuses!')
@@ -110,7 +116,7 @@ Label(UI, text='Door: Thimo, Koen, Remon en Edo', foreground=front_text, backgro
 # Knoppen in UI
 KnopAMS = Button(UI, text='Ik wil naar \nAmsterdam', foreground=front_knop, background=back_knop, font=knop, command=excuses).place(x=50, y=100)
 KnopKaart = Button(UI, text='Kopen \nlos kaartje', foreground=front_knop, background=back_knop, font=knop, command=excuses).place(x=160, y=100)
-KnopOV = Button(UI, text='Sluit scherm', foreground=front_knop, background=back_knop, font=knop, command=UI.quit).place(x=260, y=100)
+KnopOV = Button(UI, text='Sluit scherm', foreground=front_knop, background=back_knop, font=knop, command=UI.destroy).place(x=260, y=100)
 KnopBuitenland = Button(UI, text='Ik wil naar \nhet buitenland', foreground=front_knop, background=back_knop, font=knop, command=excuses).place(x=380, y=100)
 KnopVertrek = Button(UI, text='Huidige \nvertrektijden', foreground=front_knop, background=back_knop, font=knop, command=zoekStad).place(x=500, y=100)
 
