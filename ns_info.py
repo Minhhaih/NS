@@ -6,7 +6,8 @@ __version__ = "0.01"
 
 # Module Import
 from tkinter import *
-from tkinter.messagebox import *
+from api import *
+from tkinter import messagebox
 # Bij gebruik van afbeeldingen
 from PIL import Image, ImageTk
 
@@ -82,6 +83,10 @@ def vertrekTijden(station, UIVertrek):
         y_as += 20
         test +=1
 
+def excuses():
+    messagebox.showinfo('NS Automaat','Helaas is deze functie niet in gebruik. Excuses!')
+
+
 # UI Baisscherm details:
 top_text = ("Helvetica", 20, "bold")
 UIBackground = "#fcc917" # Geel
@@ -102,10 +107,10 @@ Label(UI, text='Welkom bij NS', font=top_text, foreground=front_text, background
 Label(UI, text='Door: Thimo, Koen, Remon en Edo', foreground=front_text, background=back_text).place(x=230, y=215)
 
 # Knoppen in UI
-KnopAMS = Button(UI, text='Ik wil naar \nAmsterdam', foreground=front_knop, background=back_knop, font=knop).place(x=50, y=100)
-KnopKaart = Button(UI, text='Kopen \nlos kaartje', foreground=front_knop, background=back_knop, font=knop).place(x=160, y=100)
+KnopAMS = Button(UI, text='Ik wil naar \nAmsterdam', foreground=front_knop, background=back_knop, font=knop, command=excuses).place(x=50, y=100)
+KnopKaart = Button(UI, text='Kopen \nlos kaartje', foreground=front_knop, background=back_knop, font=knop, command=excuses).place(x=160, y=100)
 KnopOV = Button(UI, text='Sluit scherm', foreground=front_knop, background=back_knop, font=knop, command=UI.quit).place(x=260, y=100)
-KnopBuitenland = Button(UI, text='Ik wil naar \nhet buitenland', foreground=front_knop, background=back_knop, font=knop).place(x=380, y=100)
+KnopBuitenland = Button(UI, text='Ik wil naar \nhet buitenland', foreground=front_knop, background=back_knop, font=knop, command=excuses).place(x=380, y=100)
 KnopVertrek = Button(UI, text='Huidige \nvertrektijden', foreground=front_knop, background=back_knop, font=knop, command=zoekStad).place(x=500, y=100)
 
 UI.mainloop()

@@ -1,8 +1,8 @@
 __author__ = "Thimo, Koen, Remon en Edo"
 __copyright__ = "Copyright 2016, Groep 4 HU"
-__credits__ = ["Nederlandse Spoorwegen", "Hogeschool Utrecht"]
+__credits__ = ["Nederlandse Spoorwegen", "Hogeschool Utrecht", "Skinkie"]
 __license__ = "GNU GPL"
-__version__ = "0.6"
+__version__ = "0.75"
 
 import requests
 import codecs
@@ -27,5 +27,23 @@ def stations_xml():
     xml.write(str(data.text))
     xml.close()
 
+def stationsindict():
+    xml = open('stations.xml', 'r')
+    xml_data = xml.read()
+    return xmltodict.parse(xml_data)
+
+def check(station):
+    if station in stations_lijst:
+        return True
+    else:
+        return False
+
 stations_xml()
 vertrektijden('Gouda')
+dict = stationsindict()
+stations_lijst = []
+for station in dict['Stations']['Station']:
+    stations_lijst.append(station['Namen']['Lang']) # Lang is gewoon volledige stationsnaam.
+
+#print(stations_lijst)
+#print(check('Gouda'))
