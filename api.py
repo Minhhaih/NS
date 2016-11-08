@@ -1,3 +1,9 @@
+__author__ = "Thimo, Koen, Remon en Edo"
+__copyright__ = "Copyright 2016, Groep 4 HU"
+__credits__ = ["Nederlandse Spoorwegen", "Hogeschool Utrecht"]
+__license__ = "GNU GPL"
+__version__ = "0.6"
+
 import requests
 import codecs
 import xmltodict
