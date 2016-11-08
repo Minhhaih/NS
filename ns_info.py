@@ -8,6 +8,7 @@ __version__ = "0.8"
 from tkinter import *
 from api import *
 from tkinter import messagebox
+from tkinter import simpledialog
 from time import strftime
 
 # Build nummer updater
@@ -118,6 +119,11 @@ def vertrekTijden(station):
 def excuses():
     messagebox.showinfo('NS Automaat','Helaas is deze functie niet in gebruik. Excuses!')
 
+def stad():
+    station = simpledialog.askstring("Station", "Welk station?")
+    print(station)
+    vertrekTijden(station)
+
 # UI Baisscherm details:
 top_text = ("Helvetica", 20, "bold")
 UIBackground = "#fcc917" # Geel
@@ -142,6 +148,6 @@ KnopAMS = Button(UI, text='Ik wil naar \nAmsterdam', foreground=front_knop, back
 KnopKaart = Button(UI, text='Kopen \nlos kaartje', foreground=front_knop, background=back_knop, font=knop, command=excuses).place(x=160, y=100)
 KnopOV = Button(UI, text='Sluit scherm\n', foreground=front_knop, background=back_knop, font=knop, command=UI.destroy).place(x=260, y=100)
 KnopBuitenland = Button(UI, text='Ik wil naar \nhet buitenland', foreground=front_knop, background=back_knop, font=knop, command=excuses).place(x=380, y=100)
-KnopVertrek = Button(UI, text='Huidige \nvertrektijden', foreground=front_knop, background=back_knop, font=knop, command=zoekStad).place(x=500, y=100)
+KnopVertrek = Button(UI, text='Huidige \nvertrektijden', foreground=front_knop, background=back_knop, font=knop, command=stad).place(x=500, y=100)
 
 UI.mainloop()
