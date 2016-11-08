@@ -42,7 +42,4 @@ vertrektijden('Gouda')
 dict = stationsindict()
 stations_lijst = []
 for station in dict['Stations']['Station']:
-    stations_lijst.append(station['Namen']['Lang']) # Lang is gewoon volledige stationsnaam.
-
-#print(stations_lijst)
-#print(check('Gouda'))
+    stations_lijst.append(station['Namen']['Lang'])
