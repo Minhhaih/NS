@@ -70,22 +70,23 @@ def vertrekTijden(station, UIVertrek):
     UIVertrek.configure(height=625, width=635, background=UIBackground)
     Label(UIVertrek, text = 'Tijd: \tEindbestemming: \tSpoor: \tWijzigingen:', font = ('Helvetica', 10, 'bold'), foreground=front_text, background=back_text).place(x = 125, y = 210)
 
+    if check(station):
+        vertrekdict = vertrektijden(station)
 
-    for i in range(0,16):
-        if test == 15:
-            break
+        for vertrek in vertrekdict['ActueleVertrekTijden']['VertrekkendeTrein']:
+            if test == 15:
+                break
 
-        Label(UIVertrek, text = "17:35", font=fontje,anchor='w', foreground=front_text, background=back_text).place(x=125, y= y_as)
-        Label(UIVertrek, text = "Gouda-Goverwelle", font=fontje,anchor='w', foreground=front_text, background=back_text).place(x=200, y=y_as)
-        Label(UIVertrek, text = "5a", font=fontje,anchor='w',  foreground=front_text, background=back_text).place(x=365, y=y_as)
-        Label(UIVertrek, text = "Wijzigingen?", font=fontje,anchor='w', foreground=front_text, background=back_text).place(x=415,y=y_as)
+            Label(UIVertrek, text = vertrek['VertrekTijd'][11:16], font=fontje,anchor='w', foreground=front_text, background=back_text).place(x=125, y= y_as)
+            Label(UIVertrek, text = vertrek['EindBestemming'], font=fontje,anchor='w', foreground=front_text, background=back_text).place(x=180, y=y_as)
+            Label(UIVertrek, text = vertrek['VertrekSpoor'], font=fontje,anchor='w',  foreground=front_text, background=back_text).place(x=365, y=y_as)
+            Label(UIVertrek, text = "Wijzigingen?", font=fontje,anchor='w', foreground=front_text, background=back_text).place(x=415,y=y_as)
 
-        y_as += 20
-        test +=1
+            y_as += 20
+            test +=1
 
 def excuses():
     messagebox.showinfo('NS Automaat','Helaas is deze functie niet in gebruik. Excuses!')
-
 
 # UI Baisscherm details:
 top_text = ("Helvetica", 20, "bold")

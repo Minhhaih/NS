@@ -10,7 +10,6 @@ import xmltodict
 
 username = 'thimo@vodafonethuis.nl'
 password = 'yIrAgJtY95pNSMXcBhSMaqtnrs29TajakBsU482dxeO4SvGfR1ZCXg'
-
 url = 'http://webservices.ns.nl/ns-api-stations-v2'
 
 def vertrektijden(station):
