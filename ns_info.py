@@ -81,7 +81,7 @@ def vertrekTijden(station):
     vertrekdict = vertrektijden(station)
 
     y_as = 85
-    test = 0
+    stations = 0
     Tijd = Button(UIVertrekbord, text=''+strftime("%H:%M"), foreground=front_knop, background=back_knop, font=knop, height=(2), width=5, command=UIVertrekbord.destroy).place(x=5, y=0)
     Label(UIVertrekbord,text='Vertrek van de treinen',font=top_font, foreground=front_text, background=back_text).place(x=85,y=0)
 
@@ -94,7 +94,7 @@ def vertrekTijden(station):
     Label(UIVertrekbord, text = 'vertraging', font = ('Helvetica', 10, 'bold'), foreground=front_text, background=back_text).place(x = 420, y = 65)
 
     for vertrek in vertrekdict['ActueleVertrekTijden']['VertrekkendeTrein']:
-        if test == 30:
+        if stations == 30:
             break
         Label(UIVertrekbord, text = vertrek['VertrekTijd'][11:16], font=klein,anchor='w', foreground=front_text, background=back_text).place(x=5, y= y_as)
         Label(UIVertrekbord, text = vertrek['EindBestemming'], font=klein,anchor='w', foreground=front_text, background=back_text).place(x=50, y=y_as)
@@ -113,7 +113,7 @@ def vertrekTijden(station):
             pass
         Label(UIVertrekbord, text=vertraging, font=klein, anchor='w', foreground=verandering_font, background=back_text).place(x=420,y=y_as)
         y_as += 20
-        test +=1
+        stations +=1
 
 
 def excuses():
