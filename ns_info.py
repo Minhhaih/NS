@@ -90,8 +90,6 @@ def UI_update(UI):
     print('test')
     UI.configure(height=400, width=635, background=UIBackground)
 
-
-
 # UI Baisscherm details:
 top_text = ("Helvetica", 20, "bold")
 UIBackground = "#fcc917" # Geel
