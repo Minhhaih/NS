@@ -55,12 +55,12 @@ def zoekStad():
 
     UIVertrek.mainloop()
 
-def station_check(station,UIVertrek):
+def station_check(station,UI):
 
     if check(station):
         vertrekTijden(station)
     else:
-        UIVertrek.destroy()
+        UI.destroy()
         messagebox.showerror('NS Automaat', 'U heeft geen geldig station ingevoerd. Probeer het opnieuw!')
 
 def vertrekTijden(station):
@@ -119,10 +119,11 @@ def vertrekTijden(station):
 def excuses():
     messagebox.showinfo('NS Automaat','Helaas is deze functie niet in gebruik. Excuses!')
 
-def stad():
-    station = simpledialog.askstring("Station", "Welk station?")
-    print(station)
-    vertrekTijden(station)
+def UI_update(UI):
+    print('test')
+    UI.configure(height=400, width=635, background=UIBackground)
+
+
 
 # UI Baisscherm details:
 top_text = ("Helvetica", 20, "bold")
@@ -141,13 +142,19 @@ UI.title('NS Automaat')
 # Labels in UI
 Label(UI, text='Build versie: ' + str(build), foreground=front_text, background=back_text).place(x=0, y=0)
 Label(UI, text='Welkom bij NS', font=top_text, foreground=front_text, background=back_text).place(x=215, y=30)
-Label(UI, text='Door: Thimo, Koen, Remon en Edo', foreground=front_text, background=back_text).place(x=230, y=215)
+DoorUI = Label(UI, text='Door: Thimo, Koen, Remon en Edo', foreground=front_text, background=back_text).place(x=230, y=180)
 
 # Knoppen in UI
 KnopAMS = Button(UI, text='Ik wil naar \nAmsterdam', foreground=front_knop, background=back_knop, font=knop, command=lambda: vertrekTijden("Amsterdam Centraal")).place(x=50, y=100)
 KnopKaart = Button(UI, text='Kopen \nlos kaartje', foreground=front_knop, background=back_knop, font=knop, command=excuses).place(x=160, y=100)
 KnopOV = Button(UI, text='Sluit scherm\n', foreground=front_knop, background=back_knop, font=knop, command=UI.destroy).place(x=260, y=100)
 KnopBuitenland = Button(UI, text='Ik wil naar \nhet buitenland', foreground=front_knop, background=back_knop, font=knop, command=excuses).place(x=380, y=100)
-KnopVertrek = Button(UI, text='Huidige \nvertrektijden', foreground=front_knop, background=back_knop, font=knop, command=stad).place(x=500, y=100)
+KnopVertrek = Button(UI, text='Huidige \nvertrektijden', foreground=front_knop, background=back_knop, font=knop, command=lambda: UI_update(UI)).place(x=500, y=100)
+
+Label(UI, text='Voer plaatsnaam in: ', foreground=front_text, background=back_text).place(x=230, y=270)
+invoerPlaats = Entry(UI)
+invoerPlaats.place(x=255, y=295)
+KnopZoek = Button(UI, text='Zoek vertrektijden', foreground=front_knop, background=back_knop, font=knop, command=lambda: station_check(invoerPlaats.get(),UI))
+KnopZoek.place(x = 280, y = 320)
 
 UI.mainloop()
