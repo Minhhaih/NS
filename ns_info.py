@@ -151,10 +151,10 @@ KnopOV = Button(UI, text='Sluit scherm\n', foreground=front_knop, background=bac
 KnopBuitenland = Button(UI, text='Ik wil naar \nhet buitenland', foreground=front_knop, background=back_knop, font=knop, command=excuses).place(x=380, y=100)
 KnopVertrek = Button(UI, text='Huidige \nvertrektijden', foreground=front_knop, background=back_knop, font=knop, command=lambda: UI_update(UI)).place(x=500, y=100)
 
-Label(UI, text='Voer plaatsnaam in: ', foreground=front_text, background=back_text).place(x=230, y=270)
+Label(UI, text='Voer plaatsnaam in: ', foreground=front_text, background=back_text).place(x=255, y=245)
 invoerPlaats = Entry(UI)
-invoerPlaats.place(x=255, y=295)
+invoerPlaats.place(x=255, y=270)
 KnopZoek = Button(UI, text='Zoek vertrektijden', foreground=front_knop, background=back_knop, font=knop, command=lambda: station_check(invoerPlaats.get(),UI))
-KnopZoek.place(x = 280, y = 320)
+KnopZoek.place(x = 260, y = 295)
 
 UI.mainloop()
