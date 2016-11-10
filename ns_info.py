@@ -23,45 +23,13 @@ with open("build.txt", "w") as f:
     f.write(str(build))
     f.close()
 
-# UI van Vertrektijden
-def zoekStad():
-
-    # UI zoekStad details:
-    top_font = ("Helvetica", 25, "bold")
-    UIBackground = "#fcc917" # Geel
-    front_text = "#002d72"  # Blauw
-    back_text = "#fcc917"  # Blauw
-    front_knop = "#ffffff" # Wit
-    back_knop = "#002d72" # Blauw
-    knop = font=("Helvetica", 10)
-    fontje = ('Helvetica', 10, 'bold')
-
-    # UI Vertrektijden:
-    UIVertrek = Tk()
-    UIVertrek.configure(height=250, width=635, background=UIBackground)
-    UIVertrek.title('Vertrektijden NS')
-
-    # Labels in UIVertrek
-    Label(UIVertrek,text='Het is nu: ' +strftime("%H:%M"),font=fontje, foreground=front_text, background=back_text).place(x=262,y=0)
-    Label(UIVertrek,text='Vertrektijden',font=top_font, foreground=front_text, background=back_text).place(x=220,y=30)
-    Label(UIVertrek,text='Voer plaatsnaam in: ',font=fontje, foreground=front_text, background=back_text).place(x=250,y=75)
-    invoerPlaats = Entry(UIVertrek)
-    invoerPlaats.place(x=255, y = 110)
-
-    # Knop in UIVertrek
-    KnopTerug = Button(UIVertrek, text='Terug', foreground=front_knop, background=back_knop, font=knop, command=UIVertrek.destroy).place(x=5, y=5)
-    KnopZoek = Button(UIVertrek, text='Zoek tijden', foreground=front_knop, background=back_knop, font=knop, command=lambda: station_check(invoerPlaats.get(),UIVertrek))
-    KnopZoek.place(x = 280, y = 140)
-
-    UIVertrek.mainloop()
-
 def station_check(station,UI):
 
     if check(station):
         vertrekTijden(station)
     else:
-        UI.destroy()
         messagebox.showerror('NS Automaat', 'U heeft geen geldig station ingevoerd. Probeer het opnieuw!')
+        UI.destroy()
 
 def vertrekTijden(station):
 
@@ -114,7 +82,6 @@ def vertrekTijden(station):
         Label(UIVertrekbord, text=vertraging, font=klein, anchor='w', foreground=verandering_font, background=back_text).place(x=420,y=y_as)
         y_as += 20
         stations +=1
-
 
 def excuses():
     messagebox.showinfo('NS Automaat','Helaas is deze functie niet in gebruik. Excuses!')
