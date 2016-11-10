@@ -29,7 +29,6 @@ def station_check(station,UI):
         vertrekTijden(station)
     else:
         messagebox.showerror('NS Automaat', 'U heeft geen geldig station ingevoerd. Probeer het opnieuw!')
-        UI.destroy()
 
 def vertrekTijden(station):
 
