@@ -52,7 +52,6 @@ def vertrekTijden(station):
     Tijd = Button(UIVertrekbord, text=''+strftime("%H:%M"), foreground=front_knop, background=back_knop, font=knop, height=(2), width=5, command=UIVertrekbord.destroy).place(x=5, y=0)
     Label(UIVertrekbord,text='Vertrek van de treinen',font=top_font, foreground=front_text, background=back_text).place(x=85,y=0)
 
-    Label(UIVertrekbord,text='Station ' +station,font=klein, foreground=front_text, background=back_text).place(x=350,y=40)
     Label(UIVertrekbord, text = 'tijd', font = ('Helvetica', 10, 'bold'), foreground=front_text, background=back_text).place(x = 5, y = 65)
     Label(UIVertrekbord, text = 'naar', font = ('Helvetica', 10, 'bold'), foreground=front_text, background=back_text).place(x = 50, y = 65)
     Label(UIVertrekbord, text = 'spoor', font = ('Helvetica', 10, 'bold'), foreground=front_text, background=back_text).place(x = 170, y = 65)
