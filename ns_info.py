@@ -87,7 +87,6 @@ def excuses():
     messagebox.showinfo('NS Automaat','Helaas is deze functie niet in gebruik. Excuses!')
 
 def UI_update(UI):
-    print('test')
     UI.configure(height=400, width=635, background=UIBackground)
 
 # UI Baisscherm details:
